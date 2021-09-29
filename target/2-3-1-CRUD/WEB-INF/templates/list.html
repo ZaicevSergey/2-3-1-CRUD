@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head>
+    <title>Список пользователей</title>
+
+    <style type="text/css">
+
+
+
+        td {
+            color: black;
+        }
+
+        div {
+            color: coral;
+        }
+
+        body {
+            background: #686470;
+        }
+
+        h2 {
+            color: black;
+        }
+
+        table {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            border-collapse: collapse;
+            color: #686461;
+        }
+
+        caption {
+            padding: 10px;
+            color: white;
+            background: #B9B29F;
+            font-size: 18px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        th {
+            border-bottom: 3px solid #B9B29F;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        tr:nth-child(odd) {
+            background: white;
+        }
+
+        tr:nth-child(even) {
+            background: #E8E6D1;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+<br><br>
+<table ALIGN="center" th:border="1" th:remove="${users.size() == 0} ? all">
+
+    <caption>
+        <h2
+                style="text-align: center;">Список пользователей
+        </h2>
+    </caption>
+
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Эл.почта</th>
+        <th>Операция</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getFirstName()}"></td>
+        <td th:text="${user.getLastName()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td>
+            <a type="button" th:href="@{/users/{id}/edit(id=${user.getId()})}" >Изменить</a>
+            <a type="button" th:href="@{/users/delete(id=${user.getId()})}">Удалить</a>
+        </td>
+    </tr>
+</table>
+<div style="text-align: center;">
+    <a th:href="${(#mvc.url('UC#addUserForm')).build()} ">Создать нового пользователя</a>
+</div>
+</body>
+</html>

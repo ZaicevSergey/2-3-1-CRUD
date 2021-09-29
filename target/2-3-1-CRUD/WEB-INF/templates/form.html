@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+
+
+<style type="text/css">
+
+
+    td {
+        color: black;
+    }
+
+
+
+    body {
+        background: #686470;
+    }
+
+    h2 {
+        color: black;
+    }
+
+    table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        border-collapse: collapse;
+        color: #686461;
+    }
+
+    caption {
+        padding: 10px;
+        color: white;
+        background: #B9B29F;
+        font-size: 18px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    th {
+        border-bottom: 3px solid #B9B29F;
+        padding: 10px;
+        text-align: left;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    tr:nth-child(odd) {
+        background: white;
+    }
+
+    tr:nth-child(even) {
+        background: #E8E6D1;
+    }
+
+</style>
+
+<body>
+<br><br>
+<table ALIGN="center">
+
+    <caption>
+        <h2
+                style="text-align: center;">Редактирование данных пользователя
+        </h2>
+    </caption>
+
+    <form th:method="POST" th:action="@{/users}" th:object="${user}">
+        <input type="hidden" th:field="*{id}" th:value="*{getId()}">
+        <tr>
+            <th>
+                <label>Имя</label>
+            </th>
+            <th><input th:field="*{firstName}" th:value="*{getFirstName()}" placeholder="Введите имя" required>
+                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+                <br/></th>
+
+
+        </tr>
+        <tr>
+            <td><label>Фамилия</label></td>
+            <td><input th:field="*{lastName}" th:value="*{getLastName()}" placeholder="Введите фамилию">
+                <br/></td>
+        </tr>
+
+        <tr>
+            <td><label>Эл.почта</label></td>
+            <td><input th:field="*{email}" th:value="*{getEmail()}" placeholder="Введите эл.почту" required>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+                <br/></td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" th:text="*{getId()} ? 'Сохранить' : 'Добавить'"/>
+            </td>
+            <td><a href="/2_3_1_CRUD_war_exploded/users/">Вернуть к списку</a></td>
+        </tr>
+    </form>
+</table>
+</body>
+</html>
